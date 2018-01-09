@@ -1,39 +1,48 @@
 package states;
 
 import entidades.Bala;
+import entidades.Entidade;
 import entidades.Jogador;
-import graphics.Assets;
 import java.awt.Graphics;
 import game.Game;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 
 public class GameState extends State{
     
     private Jogador jogador;
-    public static ArrayList<Bala> balas = new ArrayList<Bala>();
+    public static ArrayList<Entidade> entidades;
     
     public GameState(Game game){
         super(game);
+        entidades = new ArrayList<>();
         jogador = new Jogador(game, 100, 100);
+        entidades.add(jogador);
     }
     
     @Override    
     public void update(){
-        jogador.update();
-        for (Bala bala : balas){
-            bala.update();
+        try{
+            for (Entidade entidade : entidades){
+                entidade.update();
+            }
+        }catch (ConcurrentModificationException e) {
+            
         }
     }
     
     @Override
     public void render(Graphics g){
-        jogador.render(g);
-        for (Bala bala : balas){
-            bala.render(g);
+        try{
+            for (Entidade entidade : entidades){
+                entidade.render(g);
+            }
+        } catch (ConcurrentModificationException e){
+            
         }
     }
 
     public void inserirBala(Bala bala) {
-        this.balas.add(bala);
+        entidades.add(bala);
     }
 }

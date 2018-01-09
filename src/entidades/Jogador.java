@@ -35,19 +35,19 @@ public class Jogador extends Personagem{
         long agora = System.nanoTime();
         if(game.getKeyManager().cima){
             direcao = "up";
-            y -= velocidadeMovimento;
+            if (y > 15) y -= velocidadeMovimento;
         }
         if(game.getKeyManager().baixo){
             direcao = "down";
-            y += velocidadeMovimento;
+            if (y < 610) y += velocidadeMovimento;
         }
         if(game.getKeyManager().esquerda){
             direcao = "left";
-            x -= velocidadeMovimento;
+            if (x > 10) x -= velocidadeMovimento;
         }
         if(game.getKeyManager().direita){
             direcao = "right";
-            x += velocidadeMovimento;
+            if (x < 610) x += velocidadeMovimento;
         }
         if(game.getKeyManager().atirar)
             if (agora - ultimoTiro >= 500000000)
