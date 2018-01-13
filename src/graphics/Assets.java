@@ -11,4 +11,6 @@ public class Assets {
     public static BufferedImage playerEsquerda = player.crop(90, 0, 30, 30);
     
     public static BufferedImage bala = ImageLoader.loadImage("/Bala.png");
+    
+    public static BufferedImage inimigoVermelho = ImageLoader.loadImage("/Enemy.png");
 }

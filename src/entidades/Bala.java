@@ -7,23 +7,35 @@ public class Bala extends Entidade{
     
     String direcaoDaBala;
     float velocidade;
+    int dano;
     
-    public Bala(float x, float y, String direcao, float velocidade) {
-        super(x, y);
+    public Bala(float x, float y, String direcao, float velocidade, int dano) {
+        super(x, y, 5, 5);
         this.velocidade = velocidade;
+        this.dano = dano;
         direcaoDaBala = direcao;
     }
 
     @Override
     public void update() {
-        if (direcaoDaBala == "up")
-            y -= velocidade;
-        if (direcaoDaBala == "down")
-            y += velocidade;
-        if (direcaoDaBala == "left")
-            x -= velocidade;
-        if (direcaoDaBala == "right")
-            x += velocidade;
+        switch(direcaoDaBala){
+            case "up":
+                y -= velocidade;
+                break;
+            case "down":
+                y += velocidade;
+                break;
+            case "left":
+                x -= velocidade;
+                break;
+            case "right":
+                x += velocidade;
+                break;
+        }
+        
+        if (x < 0 || x > 650 || y < 0 || y > 650){
+            //System.out.println("DESTROY");
+        }
     }
 
     @Override

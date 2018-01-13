@@ -1,8 +1,9 @@
 package states;
 
 import entidades.Bala;
+import entidades.Jogador;
 import java.awt.Graphics;
-import game.Game;
+import tilegame.Game;
 
 public abstract class State {
     
@@ -28,5 +29,9 @@ public abstract class State {
     public abstract void render(Graphics g);
     
     public abstract void inserirBala(Bala bala);
+    
+    public abstract void spawnarInimigos();
+    
+    public abstract Jogador getJogador();
     
 }

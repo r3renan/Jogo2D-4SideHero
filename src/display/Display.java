@@ -8,29 +8,29 @@ public class Display {
     private JFrame frame;
     private Canvas canvas;
     
-    private String titulo;
-    private int largura, altura;
+    private String title;
+    private int width, height;
      
-    public Display(String titulo, int largura, int altura){
-        this.titulo = titulo;
-        this.largura = largura;
-        this.altura = altura;
+    public Display(String title, int width, int height){
+        this.title = title;
+        this.width = width;
+        this.height = height;
         
         createDisplay();
     }
     
     private void createDisplay(){
-        frame = new JFrame(titulo);
-        frame.setSize(largura, altura);
+        frame = new JFrame(title);
+        frame.setSize(width, height);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         
         canvas = new Canvas();
-        canvas.setPreferredSize(new Dimension(largura, altura));
-        canvas.setMaximumSize(new Dimension(largura, altura));
-        canvas.setMinimumSize(new Dimension(largura, altura));
+        canvas.setPreferredSize(new Dimension(width, height));
+        canvas.setMaximumSize(new Dimension(width, height));
+        canvas.setMinimumSize(new Dimension(width, height));
         canvas.setFocusable(false);
         
         frame.add(canvas);
@@ -43,17 +43,5 @@ public class Display {
     
     public JFrame getFrame(){
         return frame;
-    }
-
-    public int getLargura() {
-        return largura;
-    }
-
-    public int getAltura() {
-        return altura;
-    }
-    
-    public String getTitulo(){
-        return titulo;
     }
 }
