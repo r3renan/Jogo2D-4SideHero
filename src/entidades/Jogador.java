@@ -2,42 +2,47 @@ package entidades;
 
 import graphics.Assets;
 import java.awt.Graphics;
-import tilegame.Game;
+import estados.Estado;
+import game.Game;
 
 public class Jogador extends Personagem{
     
     private Game game;
     
+    int score;
+    
     String direcao = "up";
     
     long ultimoTiro, agora;
     long recargaTiro = 500000000;
+    String tipoTiro = "Default"; //Inserir outros tipos de tiro futuramente
     
     float velocidadeBala;
-    int dano;
     
-    public Jogador(Game game, float x, float y) {
-        super(x, y, DEFAULT_LARGURA, DEFAULT_ALTURA);
+    public Jogador(Game game, Estado gameState, float x, float y) {
+        super(x, y, DEFAULT_LARGURA, DEFAULT_ALTURA, gameState);
         this.game = game;
         velocidadeBala = 5;
-        dano = 5;
+        score = 0;
     }
 
     public void atirar(){
         if (agora - ultimoTiro > recargaTiro){
-            switch(direcao){
-                case "up":
-                    game.getGameState().inserirBala(new Bala(x+10, y-10, direcao, velocidadeBala, dano));
-                    break;
-                case "down":
-                    game.getGameState().inserirBala(new Bala(x+10, y+30, direcao, velocidadeBala, dano));
-                    break;
-                case "left":
-                    game.getGameState().inserirBala(new Bala(x-10, y+10, direcao, velocidadeBala, dano));
-                    break;
-                case "right":
-                    game.getGameState().inserirBala(new Bala(x+30, y+10, direcao, velocidadeBala, dano));
-                    break;
+            if (tipoTiro.equals("Default")){
+                switch(direcao){
+                    case "up":
+                        gameState.inserirBala(new Bala(x+10, y-10, direcao, velocidadeBala, gameState));
+                        break;
+                    case "down":
+                        gameState.inserirBala(new Bala(x+10, y+30, direcao, velocidadeBala, gameState));
+                        break;
+                    case "left":
+                        gameState.inserirBala(new Bala(x-10, y+10, direcao, velocidadeBala, gameState));
+                        break;
+                    case "right":
+                        gameState.inserirBala(new Bala(x+30, y+10, direcao, velocidadeBala, gameState));
+                        break;
+                }
             }
             ultimoTiro = System.nanoTime();
         }
@@ -49,19 +54,19 @@ public class Jogador extends Personagem{
         
         if(game.getKeyManager().up){
             direcao = "up";
-            if (y > 15) y -= velocidadeMovimento;
+            if (y > 15) mover(0, -velocidadeMovimento);
         }
         if(game.getKeyManager().down){
             direcao = "down";
-            if (y < 610) y += velocidadeMovimento;
+            if (y < 610) mover(0, velocidadeMovimento);
         }
         if(game.getKeyManager().left){
             direcao = "left";
-            if (x > 10) x -= velocidadeMovimento;
+            if (x > 10) mover(-velocidadeMovimento, 0);
         }
         if(game.getKeyManager().right){
             direcao = "right";
-            if (x < 610) x += velocidadeMovimento;
+            if (x < 610) mover(velocidadeMovimento, 0);
         }
         
         if(game.getKeyManager().setaDown){
@@ -80,11 +85,6 @@ public class Jogador extends Personagem{
             direcao = "right";
             atirar();
         }
-        
-        if(game.getKeyManager().uparVelocidadeBala)
-            velocidadeBala++;
-        if(game.getKeyManager().uparVelocidadeMovimento)
-            velocidadeMovimento++;
     }
 
     @Override
@@ -103,5 +103,27 @@ public class Jogador extends Personagem{
                 g.drawImage(Assets.playerDireita, (int) x, (int) y, largura, altura, null);
                 break;
         }
+    }
+    
+    @Override
+    public void onDestroy(){
+        //Estado.setState(EstadoGameOver);
+        gameState.removerEntidade(this);
+    }
+    
+    public void aumentarVelocidadeBala(float v){
+        this.velocidadeBala += v;
+    }
+    
+    public void diminuirVelocidadeReload(long t){
+        if (recargaTiro > 50000000) this.recargaTiro -= t;
+    }
+    
+    public void aumentarScore(int x){
+        score += x;
+    }
+    
+    public String getScore(){
+        return String.valueOf(score);
     }
 }

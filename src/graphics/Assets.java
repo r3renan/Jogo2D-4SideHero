@@ -13,4 +13,9 @@ public class Assets {
     public static BufferedImage bala = ImageLoader.loadImage("/Bala.png");
     
     public static BufferedImage inimigoVermelho = ImageLoader.loadImage("/Enemy.png");
+    public static BufferedImage inimigoMorto50 = ImageLoader.loadImage("/EnemyDeath.png");
+    
+    public static BufferedImage buffShotSpeed = ImageLoader.loadImage("/buffShotSpeed.png");
+    public static BufferedImage buffReload = ImageLoader.loadImage("/buffReload.png");
+    public static BufferedImage buffDoubleAttack = ImageLoader.loadImage("/buffDoubleAttack.png");
 }

@@ -2,17 +2,16 @@ package entidades;
 
 import graphics.Assets;
 import java.awt.Graphics;
+import estados.Estado;
 
 public class Bala extends Entidade{
     
     String direcaoDaBala;
     float velocidade;
-    int dano;
     
-    public Bala(float x, float y, String direcao, float velocidade, int dano) {
-        super(x, y, 5, 5);
+    public Bala(float x, float y, String direcao, float velocidade, Estado gameState) {
+        super(x, y, 5, 5, gameState);
         this.velocidade = velocidade;
-        this.dano = dano;
         direcaoDaBala = direcao;
     }
 
@@ -20,21 +19,33 @@ public class Bala extends Entidade{
     public void update() {
         switch(direcaoDaBala){
             case "up":
-                y -= velocidade;
+                if(!checkCollision(0f, -velocidade, this))
+                    y -= velocidade;
+                else
+                    onDestroy();
                 break;
             case "down":
-                y += velocidade;
+                if(!checkCollision(0f, velocidade, this))
+                    y += velocidade;
+                else
+                    onDestroy();
                 break;
             case "left":
-                x -= velocidade;
+                if(!checkCollision(-velocidade, 0f, this))
+                    x -= velocidade;
+                else
+                    onDestroy();
                 break;
             case "right":
-                x += velocidade;
+                if(!checkCollision(velocidade, 0f, this))
+                    x += velocidade;
+                else
+                    onDestroy();
                 break;
         }
         
-        if (x < 0 || x > 650 || y < 0 || y > 650){
-            //System.out.println("DESTROY");
+        if (x < 0 || x > 650 || y < 0 || y > 650){ //Remover do jogo balas que estão fora da tela
+            onDestroy();
         }
     }
 
@@ -43,4 +54,8 @@ public class Bala extends Entidade{
         g.drawImage(Assets.bala, (int) this.x, (int) this.y, null);
     }
     
+    @Override
+    public void onDestroy(){
+        gameState.removerEntidade(this);
+    };
 }
