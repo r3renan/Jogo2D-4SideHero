@@ -14,8 +14,7 @@ public class BuffReload extends PowerUp{
 
     @Override
     public void update() {
-        agora = System.nanoTime();
-        if (agora - spawn > DURACAO_NO_MAPA) gameState.removerEntidade(this);
+        if (game.agora - spawn > DURACAO_NO_MAPA) gameState.removerEntidade(this);
     }
 
     @Override

@@ -18,4 +18,6 @@ public class Assets {
     public static BufferedImage buffShotSpeed = ImageLoader.loadImage("/buffShotSpeed.png");
     public static BufferedImage buffReload = ImageLoader.loadImage("/buffReload.png");
     public static BufferedImage buffDoubleAttack = ImageLoader.loadImage("/buffDoubleAttack.png");
+    
+    
 }

@@ -3,6 +3,7 @@ package entidades;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import estados.Estado;
+import game.Game;
 
 public abstract class Entidade {
     
@@ -10,6 +11,7 @@ public abstract class Entidade {
     protected int largura, altura;
     protected Rectangle hitbox;
     protected Estado gameState;
+    protected Game game;
     
     public Entidade(float x, float y, int largura, int altura, Estado gameState){
         this.x = x;
@@ -17,7 +19,8 @@ public abstract class Entidade {
         this.largura = largura;
         this.altura = altura;
         this.gameState = gameState;
-        hitbox = new Rectangle(0, 0, largura, altura);
+        this.hitbox = new Rectangle(0, 0, largura, altura);
+        this.game = gameState.getGame();
     }
     
     public abstract void update();

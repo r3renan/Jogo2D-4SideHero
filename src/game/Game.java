@@ -18,6 +18,9 @@ public class Game implements Runnable{
     private BufferStrategy bs;
     private Graphics g;
     
+    
+    public long agora;
+    
     //States
     private Estado gameState;
     
@@ -38,7 +41,7 @@ public class Game implements Runnable{
         this.title = title;
         
         keyManager = new KeyManager();
-        enemyManager = new EnemyManager();
+        enemyManager = new EnemyManager(this);
     }
     
     private void init(){
@@ -49,6 +52,7 @@ public class Game implements Runnable{
         Estado.setState(gameState);
         
         sb.append(TEXTO_SCORE);
+        agora = System.nanoTime();
     }
     
     
@@ -56,11 +60,14 @@ public class Game implements Runnable{
     private void update(){
         keyManager.update();
         enemyManager.update();
+        agora = System.nanoTime();
         
-        score = sb;
-        score.delete(7, score.length());
-        score.append(Estado.getEstado().getJogador().getScore());
-        textoScore = score.toString().toCharArray();
+        if (Estado.getEstado().getClass().getName().equals("estados.EstadoJogo")){
+            score = sb;
+            score.delete(7, score.length());
+            score.append(Estado.getEstado().getJogador().getScore());
+            textoScore = score.toString().toCharArray();
+        }
         
         if(Estado.getEstado() != null){
             Estado.getEstado().update();

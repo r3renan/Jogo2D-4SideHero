@@ -3,19 +3,18 @@ import graphics.Assets;
 import java.awt.Graphics;
 import estados.Estado;
 
-public class BuffShotSpeed extends PowerUp{
+public class BuffBulletSpeed extends PowerUp{
     
     long agora, spawn;
     
-    public BuffShotSpeed(float x, float y, Estado gameState) {
+    public BuffBulletSpeed(float x, float y, Estado gameState) {
         super(x, y, gameState);
         spawn = System.nanoTime();
     }
 
     @Override
     public void update() {
-        agora = System.nanoTime();
-        if (agora - spawn > DURACAO_NO_MAPA) gameState.removerEntidade(this);
+        if (game.agora - spawn > DURACAO_NO_MAPA) gameState.removerEntidade(this);
     }
 
     @Override

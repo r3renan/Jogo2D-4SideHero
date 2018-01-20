@@ -7,7 +7,6 @@ public abstract class Inimigo extends Personagem{
     
     boolean isAlive;
     long horaMorte;
-    long agora;
 
     public Inimigo(float x, float y, Estado gameState) {
         super(x, y, DEFAULT_LARGURA, DEFAULT_ALTURA, gameState);
@@ -17,8 +16,7 @@ public abstract class Inimigo extends Personagem{
     @Override
     public void onDestroy(){
         this.hitbox = new Rectangle(0, 0, 0, 0);
-        this.horaMorte = System.nanoTime();
-        this.agora = horaMorte;
+        this.horaMorte = game.agora;
         recompensarPontos();
         spawnarPowerUp();
         this.isAlive = false;

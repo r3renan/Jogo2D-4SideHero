@@ -28,8 +28,6 @@ public abstract class Estado {
     
     public abstract void render(Graphics g);
     
-    public abstract void inserirBala(Entidade e);
-    
     public abstract void spawnarInimigos();
     
     public abstract Jogador getJogador();
@@ -37,5 +35,7 @@ public abstract class Estado {
     public abstract ArrayList<Entidade> getEntidades();
     
     public abstract void removerEntidade(Entidade e);
+    
+    public abstract Game getGame();
     
 }

@@ -5,16 +5,18 @@ import estados.Estado;
 public class EnemyManager {
     long ultimoSpawn;
     long agora;
+    Game game;
     
-    EnemyManager(){
+    EnemyManager(Game game){
+        this.game = game;
         ultimoSpawn = System.nanoTime();
     }
     
     public void update(){
-        agora = System.nanoTime();
-        if ((agora - ultimoSpawn) > 1000000000){
+        if ((game.agora - ultimoSpawn) > 1000000000){
             ultimoSpawn = System.nanoTime();
-            spawnar();
+            if(Estado.getEstado().getClass().getName().equals("estados.EstadoJogo"))
+                spawnar();
         }
     }
     

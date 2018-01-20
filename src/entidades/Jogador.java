@@ -3,11 +3,10 @@ package entidades;
 import graphics.Assets;
 import java.awt.Graphics;
 import estados.Estado;
+import estados.EstadoGameOver;
 import game.Game;
 
 public class Jogador extends Personagem{
-    
-    private Game game;
     
     int score;
     
@@ -16,31 +15,30 @@ public class Jogador extends Personagem{
     long ultimoTiro, agora;
     long recargaTiro = 500000000;
     String tipoTiro = "Default"; //Inserir outros tipos de tiro futuramente
-    
+       
     float velocidadeBala;
     
     public Jogador(Game game, Estado gameState, float x, float y) {
         super(x, y, DEFAULT_LARGURA, DEFAULT_ALTURA, gameState);
-        this.game = game;
         velocidadeBala = 5;
         score = 0;
     }
 
     public void atirar(){
-        if (agora - ultimoTiro > recargaTiro){
+        if (game.agora - ultimoTiro > recargaTiro){
             if (tipoTiro.equals("Default")){
                 switch(direcao){
                     case "up":
-                        gameState.inserirBala(new Bala(x+10, y-10, direcao, velocidadeBala, gameState));
+                        gameState.getEntidades().add(new Bala(x+10, y-10, direcao, velocidadeBala, gameState));
                         break;
                     case "down":
-                        gameState.inserirBala(new Bala(x+10, y+30, direcao, velocidadeBala, gameState));
+                        gameState.getEntidades().add(new Bala(x+10, y+30, direcao, velocidadeBala, gameState));
                         break;
                     case "left":
-                        gameState.inserirBala(new Bala(x-10, y+10, direcao, velocidadeBala, gameState));
+                        gameState.getEntidades().add(new Bala(x-10, y+10, direcao, velocidadeBala, gameState));
                         break;
                     case "right":
-                        gameState.inserirBala(new Bala(x+30, y+10, direcao, velocidadeBala, gameState));
+                        gameState.getEntidades().add(new Bala(x+30, y+10, direcao, velocidadeBala, gameState));
                         break;
                 }
             }
@@ -50,7 +48,6 @@ public class Jogador extends Personagem{
     
     @Override
     public void update() {
-        agora = System.nanoTime();
         
         if(game.getKeyManager().up){
             direcao = "up";
@@ -107,7 +104,7 @@ public class Jogador extends Personagem{
     
     @Override
     public void onDestroy(){
-        //Estado.setState(EstadoGameOver);
+        Estado.setState(new EstadoGameOver(game));
         gameState.removerEntidade(this);
     }
     

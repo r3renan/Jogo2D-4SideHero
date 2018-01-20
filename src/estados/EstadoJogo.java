@@ -24,8 +24,8 @@ public class EstadoJogo extends Estado{
     @Override    
     public void update(){
         try{
-            for (Entidade entidades : entidades){
-                entidades.update();
+            for (Entidade entidade : entidades){
+                entidade.update();
             }
         } catch (ConcurrentModificationException e){
             
@@ -35,17 +35,12 @@ public class EstadoJogo extends Estado{
     @Override
     public void render(Graphics g){
         try{
-            for (Entidade entidades : entidades){
-                entidades.render(g);
+            for (Entidade entidade : entidades){
+                entidade.render(g);
             }
         } catch (ConcurrentModificationException e){
             
         }
-    }
-
-    @Override
-    public void inserirBala(Entidade bala) {
-        this.entidades.add(bala);
     }
     
     @Override
@@ -75,6 +70,10 @@ public class EstadoJogo extends Estado{
     @Override
     public Jogador getJogador() {
         return jogador;
+    }
+    
+    public Game getGame(){
+        return game;
     }
     
     @Override

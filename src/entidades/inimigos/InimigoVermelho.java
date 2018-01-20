@@ -1,7 +1,7 @@
 package entidades.inimigos;
 
 import entidades.powerups.BuffReload;
-import entidades.powerups.BuffShotSpeed;
+import entidades.powerups.BuffBulletSpeed;
 import graphics.Assets;
 import java.awt.Graphics;
 import estados.Estado;
@@ -28,9 +28,7 @@ public class InimigoVermelho extends Inimigo {
         if(isAlive == true)
             calcularDistancia();
         else {
-            if (agora - horaMorte < 300000000)
-                agora = System.nanoTime();
-            else
+            if (game.agora - horaMorte > 300000000)
                 gameState.removerEntidade(this);
         }
     }
@@ -63,7 +61,7 @@ public class InimigoVermelho extends Inimigo {
     public void spawnarPowerUp() {
         switch(new Random().nextInt(5)){
             case 1:
-                gameState.getEntidades().add(new BuffShotSpeed((this.x + largura / 2), (this.y + altura / 2), gameState));
+                gameState.getEntidades().add(new BuffBulletSpeed((this.x + largura / 2), (this.y + altura / 2), gameState));
                 break;
             case 2:
                 gameState.getEntidades().add(new BuffReload((this.x + largura / 2), (this.y + altura / 2), gameState));
